@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name="marks")
 public class Mark {
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
 	@ManyToOne
 	@JoinColumn(name="stid", nullable = false)
