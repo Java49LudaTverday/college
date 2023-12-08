@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import telran.college.dto.LecturerHours;
+import telran.college.dto.LecturerMark;
 import telran.college.entities.*;
 
 public interface LecturerRepo extends JpaRepository<Lecturer, Long> {
@@ -16,7 +15,7 @@ public interface LecturerRepo extends JpaRepository<Lecturer, Long> {
 	String JOIN_LECTURER_SUBJECT = "FROM students_lecturers st join subjects s on st.id=s.lecturer_id ";
 	@Query(value="SELECT st.name as name, sum(hours) as hours " + JOIN_LECTURER_SUBJECT
 			+ "GROUP BY st.name  ORDER BY sum(hours) desc limit :nLecturers", nativeQuery = true)
-	List<LecturerHours> findMostLecturerHours(int nLecturers);
+	List<LecturerMark> findMostLecturerHours(int nLecturers);
 	
     //retrieving all lecturer names and phone
     //numbers from a given city
