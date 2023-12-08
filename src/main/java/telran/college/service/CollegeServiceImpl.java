@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import telran.college.dto.LecturerHours;
 import telran.college.dto.StudentMark;
 import telran.college.repo.*;
 
@@ -27,5 +28,37 @@ public class CollegeServiceImpl implements CollegeService {
 		
 		return studentRepo.studentsAvgMarks();
 	}
+
+	@Override
+	public List<LecturerHours> mostLecturerHours(int nLecturers) {
+		
+		return lecturerRepo.findMostLecturerHours(nLecturers);
+	}
+
+	@Override
+	public List<String> studentsHavingLessScore(int score) {
+		
+		return studentRepo.findStudentsHavingLessScore(score);
+	}
+
+	@Override
+	public List<String> studentsBornInMonth(String mounth) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StudentMark> subjectsAndScoresOfStudent(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> allLecturersFromCity(String city) {
+		
+		return lecturerRepo.findAllLecturersFromCity(city);
+	}
+	
+	
 
 }
