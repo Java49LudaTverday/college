@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import telran.college.dto.LecturerHours;
+import telran.college.dto.LecturerMark;
 import telran.college.dto.StudentMark;
 import telran.college.repo.*;
 
@@ -30,7 +30,7 @@ public class CollegeServiceImpl implements CollegeService {
 	}
 
 	@Override
-	public List<LecturerHours> mostLecturerHours(int nLecturers) {
+	public List<LecturerMark> mostLecturerHours(int nLecturers) {
 		
 		return lecturerRepo.findMostLecturerHours(nLecturers);
 	}
@@ -42,21 +42,21 @@ public class CollegeServiceImpl implements CollegeService {
 	}
 
 	@Override
-	public List<String> studentsBornInMonth(String mounth) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> studentsBornInMonth(int mounth) {
+		
+		return studentRepo.findStudentsBornInMonth(mounth);
 	}
 
 	@Override
 	public List<StudentMark> subjectsAndScoresOfStudent(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return studentRepo.findSubjectsScoreByStudent(name);
 	}
 
 	@Override
-	public List<String> allLecturersFromCity(String city) {
+	public List<String> allLecturersByCity(String city) {
 		
-		return lecturerRepo.findAllLecturersFromCity(city);
+		return lecturerRepo.findAllLecturersByCity(city);
 	}
 	
 	
