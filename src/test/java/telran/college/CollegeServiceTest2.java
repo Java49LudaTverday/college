@@ -63,6 +63,7 @@ class CollegeServiceTest2 {
 	}
 
 	private void runTest(StudentMark[] expected, Object[] actual) {
+		assertEquals(expected.length, actual.length);
 		for(int i = 0; i< expected.length; i++) {
 			StudentMark smEx = expected[i];
 			StudentMark smAc = (StudentMark) actual[i];
@@ -79,6 +80,7 @@ class CollegeServiceTest2 {
 				                    new LecturerMarkDto("Sockratus", 65)}; 
 		lecturersHours.forEach(lh -> System.out.printf("lecture: %s, hours: %d\n",
 				lh.getName(), lh.getHours()));
+		assertEquals(lecturersHours.size(), expected.length);
 		for(int i = 0; i< expected.length; i++) {
 		LecturerMark lmEx = expected[i];
 		LecturerMark lmAc = lecturersHours.get(i);
