@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import telran.college.dto.LecturerMark;
+import telran.college.dto.NameScore;
 import telran.college.dto.StudentMark;
 import telran.college.service.CollegeService;
 
@@ -32,7 +33,7 @@ class CollegeServiceTest {
 	@Test
 //	@Disabled
 	void studentsAvgScoreTest() {
-		List<StudentMark> studentsMark = collegeService.studentsAvgMarks();
+		List<NameScore> studentsMark = collegeService.studentsMarksAvg();
 		Map<String, Integer> expected = new HashMap<>();
 		expected.put("David", 96);
 		expected.put("Vasya", 83);

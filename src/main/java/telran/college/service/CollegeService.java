@@ -2,8 +2,11 @@ package telran.college.service;
 
 import java.util.List;
 
-import telran.college.dto.LecturerMark;
-import telran.college.dto.StudentMark;
+import telran.college.dto.LecturerHours;
+import telran.college.dto.NamePhone;
+import telran.college.dto.NameScore;
+import telran.college.dto.StudentCity;
+
 
 
 public interface CollegeService {
@@ -11,26 +14,26 @@ public interface CollegeService {
 	List<String> bestStudentsSubjectType(String type, int nStudents);
 
 	// returns average score by each student
-	List<StudentMark> studentsAvgMarks();
+	List<NameScore> studentsMarksAvg();
 	
 	// retrieving names and total lecture hours of a number
 	//of the lecturers with most lecture hours
-	List<LecturerMark> mostLecturerHours(int nLecturers);
+	List<LecturerHours> lecturersMostHours(int nLecturers);
 	
     //	 retrieving names and cities of the students having less
     //	than a given number of the scores
-	List<String> studentsHavingLessScore(int score);
+	List<StudentCity> studentsScoresLess(int nThreshold);
 	
     //	retrieving names and phone numbers of then students 
     //	were born at a given month
-	List<String> studentsBornInMonth (int mounth);
+	List<NamePhone> studentsBurnMonth(int month);
 	
     //	retrieving all subject names and scores of a
     //	student with a given name
-	List<StudentMark> subjectsAndScoresOfStudent (String name);
+	List<NamePhone> lecturersCity(String city);
 	
     //	retrieving all lecturer names and phone
     //	numbers from a given city
-	List<String> allLecturersByCity (String city);
+	List<NameScore> subjectsScores(String studentName);
 
 }
