@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import telran.college.dto.*;
+import telran.college.entities.Student;
 import telran.college.service.CollegeService;
 @SpringBootTest
 @Sql(scripts = {"db_test.sql"})
@@ -72,7 +73,7 @@ CollegeService collegeService;
 		String [] phonesExpected = {
 			"054-1234567", "051-6677889"	
 		};
-		NamePhone[] studentPhonesArr = collegeService.studentsBurnMonth(10)
+		NamePhone[] studentPhonesArr = collegeService.studentsBornMonth(10)
 				.toArray(NamePhone[]::new);
 		assertEquals(phonesExpected.length, studentPhonesArr.length);
 		IntStream.range(0,  phonesExpected.length).forEach(i -> {
@@ -104,11 +105,11 @@ CollegeService collegeService;
 		int[] scores = {
 				75, 60, 95, 85, 100
 		};
-		NameScore[] subjectScores = collegeService.subjectsScores("Vasya")
-				.toArray(NameScore[]::new);
+		SubjectNameScore[] subjectScores = collegeService.subjectsScores("Vasya")
+				.toArray(SubjectNameScore[]::new);
 		assertEquals(scores.length, subjectScores.length);
 		IntStream.range(0, scores.length).forEach(i -> {
-			assertEquals(subjects[i], subjectScores[i].getName());
+			assertEquals(subjects[i], subjectScores[i].getSubjectName());
 			assertEquals(scores[i], subjectScores[i].getScore());
 		});
 		
