@@ -6,8 +6,8 @@ import telran.college.dto.LecturerHours;
 import telran.college.dto.NamePhone;
 import telran.college.dto.NameScore;
 import telran.college.dto.StudentCity;
-
-
+import telran.college.dto.SubjectNameScore;
+import telran.college.entities.Student;
 
 public interface CollegeService {
 	// returns names of best students
@@ -26,7 +26,7 @@ public interface CollegeService {
 	
     //	retrieving names and phone numbers of then students 
     //	were born at a given month
-	List<NamePhone> studentsBurnMonth(int month);
+	List<NamePhone> studentsBornMonth(int month);
 	
     //	retrieving all subject names and scores of a
     //	student with a given name
@@ -34,6 +34,6 @@ public interface CollegeService {
 	
     //	retrieving all lecturer names and phone
     //	numbers from a given city
-	List<NameScore> subjectsScores(String studentName);
+	List<SubjectNameScore> subjectsScores(String studentName);
 
 }

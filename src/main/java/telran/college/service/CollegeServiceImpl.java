@@ -3,12 +3,16 @@ package telran.college.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
+import java.lang.Override;
 import lombok.RequiredArgsConstructor;
 import telran.college.dto.LecturerHours;
 import telran.college.dto.NamePhone;
 import telran.college.dto.NameScore;
 import telran.college.dto.StudentCity;
+import telran.college.dto.SubjectNameScore;
+import telran.college.dto.SubjectType;
+import telran.college.entities.Person;
+import telran.college.entities.Student;
 import telran.college.repo.*;
 
 @Service
@@ -22,39 +26,39 @@ public class CollegeServiceImpl implements CollegeService {
 	@Override
 	public List<String> bestStudentsSubjectType(String type, int nStudents) {
 	
-		return studentRepo.findBestStudentsSubjectType(type, nStudents);
+		return markRepo.findBestStudentsSubjectType(SubjectType.valueOf(type), nStudents);
 	}
 
 	@Override
 	public List<NameScore> studentsMarksAvg() {
 		
-		return studentRepo.studentsMarksAvg();
+		return markRepo.studentsMarksAvg();
 	}
 
 	@Override
 	public List<LecturerHours> lecturersMostHours(int nLecturers) {
 		
-		return lecturerRepo.findLecturersMostHours(nLecturers);
+		return subjectRepo.findLecturersMostHours(nLecturers);
 	}
 	@Override
 	public List<StudentCity> studentsScoresLess(int nThreshold) {
 		
-		return studentRepo.findStudentsScoresLess(nThreshold);
+		return markRepo.findStudentsScoresLess(nThreshold);
 	}
 	@Override
-	public List<NamePhone> studentsBurnMonth(int month) {
+	public List<NamePhone> studentsBornMonth(int month) {
 		
-		return studentRepo.findStudentsBurnMonth(month);
+		return studentRepo.findStudentsBornMonth(month);
 	}
 	@Override
 	public List<NamePhone> lecturersCity(String city) {
-		
-		return lecturerRepo.findLecturersCity(city);
+		//TODO method with named query
+		return lecturerRepo.findByCity(city);
 	}
 	@Override
-	public List<NameScore> subjectsScores(String studentName) {
+	public List<SubjectNameScore> subjectsScores(String studentName) {
 		
-		return studentRepo.findSubjectScore(studentName);
+		return markRepo.findByStudentName(studentName);
 	}
 	
 

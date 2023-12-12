@@ -1,6 +1,8 @@
 package telran.college.entities;
 
+ 
 import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.Getter;
