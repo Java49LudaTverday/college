@@ -18,14 +18,10 @@ public class Mark {
 	Subject subject;
 	@Column(nullable = false)
 	int score;
-	public void setScore(int score) {
+	public void setFields (int score, Student student, Subject subject) {
 		this.score = score;
-	}
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-	public void setSubject(Subject subject) {
-		this.subject = subject;
+		this.student= student;
+		this.subject =  subject;
 	}
 
 }

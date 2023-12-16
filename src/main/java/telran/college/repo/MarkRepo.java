@@ -20,13 +20,16 @@ public interface MarkRepo extends JpaRepository<Mark, Long> {
 			+ "group by student.name order by avg(score) desc limit :nStudents")
 List<String> findBestStudentsSubjectType(SubjectType type, int nStudents);
 	/*********************************/
-	@Query("SELECT st.name as name, st.city as city "
+	@Query("SELECT st.id as id, st.name as name, st.city as city "
 			+ "from Mark m "
 			+ "right join m.student st "
-			+ "group by st.name, st.city having count(m.score) < :scoresThreshold")
+			+ "group by st.id, st.city having count(m.score) < :scoresThreshold")
 	List<StudentCity> findStudentsScoresLess(int scoresThreshold);
 	/*************************/
 	@Query("SELECT student.name as name, round(avg(score)) as score FROM " 
               + "Mark GROUP BY student.name ORDER BY avg(score) desc")
 	List<NameScore> studentsMarksAvg();
+	/************************/
+	List<Mark> findBySubject(Subject subject);
+	List<Mark> findByStudent(Student student);
 }
