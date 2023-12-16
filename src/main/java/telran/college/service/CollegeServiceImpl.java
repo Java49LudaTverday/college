@@ -1,7 +1,10 @@
 package telran.college.service;
 
 import java.util.List;
+import java.util.stream.LongStream;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,6 +84,9 @@ public class CollegeServiceImpl implements CollegeService {
 	@Override
 	@Transactional(readOnly = false)
 	public SubjectDto addSubject(SubjectDto subjectDto) {
+		if(subjectRepo.existsById(subjectDto.id())) {
+			throw new IllegalStateException(String.format("subject with id %d already exists", subjectDto.id()));
+		}
 		Lecturer lecturer = null;
 		if(subjectDto.lecturerId() != null) {
 			lecturer = lecturerRepo.findById(subjectDto.lecturerId()).orElseThrow(
@@ -133,7 +139,12 @@ public class CollegeServiceImpl implements CollegeService {
 		// update all subjects with being deleted lecturer by setting null in field Lecturer
 		//lecturerRepo.delete(lecturer);
 		//returns lecturer.build();
-		return null;
+		Lecturer lecturer = lecturerRepo.findById(id).orElseThrow(() -> 
+		new NotFoundException(getNotExistsMessage("lecturer", id)));
+		List<Subject> subjects = subjectRepo.findByLecturer(lecturer);
+		subjects.stream().forEach(s -> s.setLecturer(null));
+		lecturerRepo.delete(lecturer);
+		return lecturer.build();
 	}
 
 	@Override
@@ -143,14 +154,33 @@ public class CollegeServiceImpl implements CollegeService {
 		//delete all marks with a given subject
 		//subjectRepo.delete(lecturer);
 		//returns subject.build();
-		return null;
+		Subject subject = subjectRepo.findById(id).orElseThrow( () -> 
+		new NotFoundException(getNotExistsMessage("subject", id)));
+		List<Mark> marks = markRepo.findBySubject(subject);
+		marks.stream().forEach(m -> markRepo.delete(m));
+		subjectRepo.delete(subject);
+		return subject.build();
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public List<PersonDto> deleteStudentsHavingScoresLess(int nScores) {
-		// TODO Auto-generated method stub
-		return null;
+		//finding relevant students with they ids
+		List<StudentCity> studentCity = markRepo.findStudentsScoresLess(nScores);
+		//finding Student with appropriate ids
+		List<Student> students = studentCity.stream().map(sc -> studentRepo.findById(sc.getId()).orElseThrow(() -> 
+		new NotFoundException(getNotExistsMessage("student", sc.getId())))).toList();
+		// finding all marks by each Student
+		List<List<Mark>> marks = students.stream().map(st -> markRepo.findByStudent(st)).toList(); 
+		//deleting all marks
+		for(List<Mark> m : marks) {
+			m.stream().forEach(mr -> markRepo.delete(mr));
+		}
+		//creating list of PersonDto
+		List<PersonDto> studentDto = students.stream().map(st -> st.build()).toList();
+		//deleting each student from StudentRepo
+		students.stream().forEach(st-> studentRepo.delete(st));
+		return studentDto;
 	}
 	
 	private String getNotExistsMessage(String object, long id) {

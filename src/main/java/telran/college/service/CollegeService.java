@@ -44,5 +44,6 @@ public interface CollegeService {
 	List<PersonDto> deleteStudentsHavingScoresLess(int nScores);
 	// retrieving any jpql query
 	
+	
 
 }
