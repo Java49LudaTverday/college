@@ -2,12 +2,7 @@ package telran.college.service;
 
 import java.util.List;
 
-import telran.college.dto.LecturerHours;
-import telran.college.dto.NamePhone;
-import telran.college.dto.NameScore;
-import telran.college.dto.StudentCity;
-import telran.college.dto.SubjectNameScore;
-import telran.college.entities.Student;
+import telran.college.dto.*;
 
 public interface CollegeService {
 	// returns names of best students
@@ -35,5 +30,19 @@ public interface CollegeService {
     //	retrieving all lecturer names and phone
     //	numbers from a given city
 	List<SubjectNameScore> subjectsScores(String studentName);
+	// adding all objects
+	PersonDto addStudent(PersonDto personDto);
+	PersonDto addLecturer(PersonDto personDto);
+	SubjectDto addSubject(SubjectDto subjectDto);
+	MarkDto addMark(MarkDto markDto);
+	//updating information
+	PersonDto updateStudent (PersonDto personDto);
+	PersonDto updateLecturer (PersonDto personDto);
+	// deleting
+	PersonDto deleteLecturer(long id);
+	SubjectDto deleteSubject(long id);
+	List<PersonDto> deleteStudentsHavingScoresLess(int nScores);
+	// retrieving any jpql query
+	
 
 }
